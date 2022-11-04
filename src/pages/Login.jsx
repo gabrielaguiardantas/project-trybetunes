@@ -43,7 +43,7 @@ class Login extends Component {
     this.setState({ isLoading: true });
     await createUser({ name: loginNameInput });
     this.setState({ isLoading: false });
-    history.push('/search');
+    history.push('/search', this.state);
   }
 
   render() {
