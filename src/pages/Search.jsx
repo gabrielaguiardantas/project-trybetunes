@@ -41,7 +41,6 @@ class Search extends Component {
     this.setState({ isLoading: true, searchArtistInput2: searchArtistInput });
     const AlbumsApi = await searchAlbumsAPI(searchArtistInput);
     await searchAlbumsAPI(searchArtistInput);
-    console.log(await searchAlbumsAPI(searchArtistInput));
     this.setState(
       { isLoading: false,
         searchArtistInput: '',
@@ -62,6 +61,25 @@ class Search extends Component {
     } if (resultSearch) {
       return (
         <div>
+          <form>
+            <input
+              type="text"
+              name="searchArtistInput"
+              id="searchArtistInput"
+              data-testid="search-artist-input"
+              placeholder="Nome do Artista"
+              onChange={ this.handleChange }
+              value={ searchArtistInput }
+            />
+            <button
+              type="button"
+              data-testid="search-artist-button"
+              disabled={ isSearchInvalid }
+              onClick={ this.searchArtistRequest }
+            >
+              Pesquisar
+            </button>
+          </form>
           Resultado de álbuns de:
           {' '}
           {searchArtistInput2}
