@@ -2,16 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class MusicCard extends Component {
-  //   favoriteMusicsList = async () => {
-  //     const { music } = this.props;
-  //     this.setState({ isLoading: true, isChecked: true });
-  //     await addSong(music);
-  //     return this.setState({ isLoading: false });
-  //   };
-
   render() {
     const { trackName, previewUrl, trackId,
-      favoriteMusicsList, music, isChecked } = this.props;
+      favoriteMusicsList, music, isChecked, removeFavoriteMusics } = this.props;
     return (
 
       <div>
@@ -31,9 +24,11 @@ class MusicCard extends Component {
           Favorita
           <input
             type="checkbox"
-            name="checkBoxFavoriteMusic"
+            name={ trackId }
             id={ trackId }
-            onChange={ () => favoriteMusicsList(music) }
+            onChange={ ({ target }) => {
+              favoriteMusicsList(music, target);
+            } }
             checked={ isChecked }
           />
         </label>

@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 import Loading from './Loading';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   state = {
@@ -16,6 +16,7 @@ class Album extends Component {
 
   componentDidMount() {
     this.albumRequest();
+    console.log('entra aqui');
   }
 
   albumRequest = async () => {
@@ -27,14 +28,34 @@ class Album extends Component {
     });
   };
 
-  favoriteMusicsList = async (music) => {
+  favoriteMusicsList = async (music, target) => {
     this.setState({ isLoading: true });
-    await addSong(music);
+
+    if (target.checked) {
+      await addSong(music);
+      this.setState(({ favoriteSongsList }) => ({
+        favoriteSongsList: [...favoriteSongsList, music],
+      }));
+    } else {
+      await removeSong(music);
+      this.setState({
+        favoriteSongsList: await getFavoriteSongs(),
+      });
+    }
     this.setState({ isLoading: false });
-    this.setState(({ favoriteSongsList }) => ({
-      favoriteSongsList: [...favoriteSongsList, music],
-    }));
   };
+
+  // removeFavoriteMusics = async (music) => {
+  //   const { favoriteSongsList } = this.state;
+  //   if (isChecked === true) {
+  //     this.setState({
+  //       favoriteSongsList: favoriteSongsList
+  //         .filter((song) => song !== music.trackId) });
+  //     this.setState({ isChecked: false });
+  //   } else {
+  //     this.favoriteMusicsList(music);
+  //   }
+  // };
 
   render() {
     const { albumInfo, albumDetails,
@@ -61,7 +82,9 @@ class Album extends Component {
                       albumDetails={ albumDetails }
                       music={ music }
                       favoriteMusicsList={ this.favoriteMusicsList }
-                      isChecked={ favoriteSongsList.some((song) => song === music) }
+                      isChecked={ favoriteSongsList
+                        .some((song) => song.trackId === music.trackId) }
+                      // removeFavoriteMusics={ this.removeFavoriteMusics }
                     />))
                   }
                 </div>
