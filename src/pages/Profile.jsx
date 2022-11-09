@@ -30,11 +30,13 @@ class Profile extends Component {
       email, image, name } } = this.state;
     return (
       <div>
+        <Header />
         {
+
           isLoading ? <Loading /> : (
             <div>
               <div data-testid="page-profile">Profile</div>
-              <Header />
+
               <img src={ image } alt="Imagem de perfil" data-testid="profile-image" />
               <Link to="/profile/edit">Editar perfil</Link>
               <h1>Nome</h1>
