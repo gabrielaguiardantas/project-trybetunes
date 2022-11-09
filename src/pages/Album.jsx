@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 import Loading from './Loading';
-import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   state = {
@@ -16,7 +16,6 @@ class Album extends Component {
 
   componentDidMount() {
     this.albumRequest();
-    console.log('entra aqui');
   }
 
   albumRequest = async () => {
@@ -30,6 +29,7 @@ class Album extends Component {
 
   favoriteMusicsList = async (music, target) => {
     this.setState({ isLoading: true });
+    console.log(target.checked);
 
     if (target.checked) {
       await addSong(music);
@@ -39,23 +39,11 @@ class Album extends Component {
     } else {
       await removeSong(music);
       this.setState({
-        favoriteSongsList: await getFavoriteSongs(),
+        favoriteSongsList: JSON.parse(localStorage.getItem('favorite_songs')),
       });
     }
     this.setState({ isLoading: false });
   };
-
-  // removeFavoriteMusics = async (music) => {
-  //   const { favoriteSongsList } = this.state;
-  //   if (isChecked === true) {
-  //     this.setState({
-  //       favoriteSongsList: favoriteSongsList
-  //         .filter((song) => song !== music.trackId) });
-  //     this.setState({ isChecked: false });
-  //   } else {
-  //     this.favoriteMusicsList(music);
-  //   }
-  // };
 
   render() {
     const { albumInfo, albumDetails,
@@ -84,7 +72,6 @@ class Album extends Component {
                       favoriteMusicsList={ this.favoriteMusicsList }
                       isChecked={ favoriteSongsList
                         .some((song) => song.trackId === music.trackId) }
-                      // removeFavoriteMusics={ this.removeFavoriteMusics }
                     />))
                   }
                 </div>

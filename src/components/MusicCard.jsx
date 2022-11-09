@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class MusicCard extends Component {
   render() {
     const { trackName, previewUrl, trackId,
-      favoriteMusicsList, music, isChecked, removeFavoriteMusics } = this.props;
+      favoriteMusicsList, music, isChecked } = this.props;
     return (
 
       <div>
