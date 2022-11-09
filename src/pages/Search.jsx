@@ -61,6 +61,7 @@ class Search extends Component {
     } if (resultSearch) {
       return (
         <div>
+          <Header />
           <form>
             <input
               type="text"
