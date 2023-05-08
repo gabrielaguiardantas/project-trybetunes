@@ -12,7 +12,7 @@ Décimo projeto do curso de desenvolvimento Web da Trybe e quarto projeto do mó
 
 ## Demonstração: ##
 
-
+Estilização em construção :construction:
 
 https://user-images.githubusercontent.com/110852595/236903208-76a71098-f978-470b-a966-2f121e0af8dc.mp4
 
